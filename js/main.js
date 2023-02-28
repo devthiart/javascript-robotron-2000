@@ -36,15 +36,8 @@ const parts = {
 }
 
 robotron.addEventListener('click', () => {
-  console.log("Don't click me human!");
+  alert("Don't click me human!");
 });
-
-function sayHi(name="human") {
-  console.log(`Hi ${name}!`);
-  console.log("Welcome to Robotron 2000!");
-}
-
-sayHi();
 
 function manipulateData(operation, control) {
   const part = control.querySelector('[data-counter]');
@@ -60,13 +53,19 @@ controls.forEach(
   (element) => {
     element.addEventListener('click', (event) => {
       manipulateData(event.target.dataset.control, event.target.parentNode);
-      updateStatistics(event.target.dataset.part);
+      updateStatistics(event.target.dataset.control, event.target.dataset.part);
     })
   }
 )
 
-function updateStatistics(part) {
-  statistics.forEach((element) => {
-    element.textContent = parseInt(element.textContent) + parts[part][element.dataset.statistic];
-  })
+function updateStatistics(operation, part) {
+  if (operation === "+") {
+    statistics.forEach((element) => {
+      element.textContent = parseInt(element.textContent) + parts[part][element.dataset.statistic];
+    })
+  } else {
+    statistics.forEach((element) => {
+      element.textContent = parseInt(element.textContent) - parts[part][element.dataset.statistic];
+    })
+  }
 }
