@@ -1,5 +1,8 @@
 const robotron = document.querySelector('#robotron');
-const controls = document.querySelectorAll('[data-control]');
+const controls = { 
+  incrementButtons: document.querySelectorAll('[data-control="+"]'),
+  decrementButtons: document.querySelectorAll('[data-control="-"]')
+}
 const statistics = document.querySelectorAll('[data-statistic]');
 const parts = {
   "cor": {
@@ -42,36 +45,50 @@ const parts = {
 }
 
 robotron.addEventListener('click', () => {
-  alert("Don't click me human!");
+  alert("Robotron: Don't click me human!");
 });
 
-function manipulateData(operation, control) {
+function incrementData(control) {
   const part = control.querySelector('[data-counter]');
-
-  if(operation === '-') {
-    part.value = parseInt(part.value) - 1;
-  } else {
-    part.value = parseInt(part.value) + 1;
-  }
+  part.value = parseInt(part.value) + 1;
 }
 
-controls.forEach(
+function decrementData(control) {
+  const part = control.querySelector('[data-counter]');
+  part.value = parseInt(part.value) - 1;
+}
+
+function increaseStats(part) {
+  statistics.forEach((element) => {
+    element.textContent = parseInt(element.textContent) + parts[part][element.dataset.statistic];
+  })
+}
+
+function decreaseStats(part) {
+  statistics.forEach((element) => {
+    element.textContent = parseInt(element.textContent) - parts[part][element.dataset.statistic];
+  })
+}
+
+controls.incrementButtons.forEach(
   (element) => {
     element.addEventListener('click', (event) => {
-      manipulateData(event.target.dataset.control, event.target.parentNode);
-      updateStatistics(event.target.dataset.control, event.target.dataset.part);
+      incrementData(event.target.parentNode);
+      increaseStats(event.target.dataset.part);
     })
   }
 )
 
-function updateStatistics(operation, part) {
-  if (operation === "+") {
-    statistics.forEach((element) => {
-      element.textContent = parseInt(element.textContent) + parts[part][element.dataset.statistic];
-    })
-  } else {
-    statistics.forEach((element) => {
-      element.textContent = parseInt(element.textContent) - parts[part][element.dataset.statistic];
+controls.decrementButtons.forEach(
+  (element) => {
+    element.addEventListener('click', (event) => {
+      const partValue = event.target.parentNode.querySelector('[data-counter]').value;
+      if(partValue > 0) {
+        decrementData(event.target.parentNode);
+        decreaseStats(event.target.dataset.part);
+      } else {
+        alert("Você não pode inserir um valor negativo.");
+      }
     })
   }
-}
+)
