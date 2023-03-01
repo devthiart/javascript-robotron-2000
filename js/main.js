@@ -2,6 +2,12 @@ const robotron = document.querySelector('#robotron');
 const controls = document.querySelectorAll('[data-control]');
 const statistics = document.querySelectorAll('[data-statistic]');
 const parts = {
+  "cor": {
+    "forca": 0,
+      "poder": 0,
+      "energia": 0,
+      "velocidade": 0
+  },
   "bracos": {
       "forca": 29,
       "poder": 35,
