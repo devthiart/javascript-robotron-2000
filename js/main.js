@@ -1,16 +1,9 @@
-const robotron = document.querySelector('#robotron');
 const controls = { 
   incrementButtons: document.querySelectorAll('[data-control="+"]'),
-  decrementButtons: document.querySelectorAll('[data-control="-"]')
+  decrementButtons: document.querySelectorAll('[data-control="-"]'),
 }
 const statistics = document.querySelectorAll('[data-statistic]');
 const parts = {
-  "cor": {
-    "forca": 0,
-      "poder": 0,
-      "energia": 0,
-      "velocidade": 0
-  },
   "bracos": {
       "forca": 29,
       "poder": 35,
@@ -44,9 +37,7 @@ const parts = {
   }
 }
 
-robotron.addEventListener('click', () => {
-  alert("Robotron: Don't click me human!");
-});
+addEventOnControlButtons();
 
 function incrementData(control) {
   const part = control.querySelector('[data-counter]');
@@ -57,6 +48,7 @@ function decrementData(control) {
   const part = control.querySelector('[data-counter]');
   part.value = parseInt(part.value) - 1;
 }
+
 
 function increaseStats(part) {
   statistics.forEach((element) => {
@@ -70,25 +62,27 @@ function decreaseStats(part) {
   })
 }
 
-controls.incrementButtons.forEach(
-  (element) => {
-    element.addEventListener('click', (event) => {
-      incrementData(event.target.parentNode);
-      increaseStats(event.target.dataset.part);
-    })
-  }
-)
-
-controls.decrementButtons.forEach(
-  (element) => {
-    element.addEventListener('click', (event) => {
-      const partValue = event.target.parentNode.querySelector('[data-counter]').value;
-      if(partValue > 0) {
-        decrementData(event.target.parentNode);
-        decreaseStats(event.target.dataset.part);
-      } else {
-        alert("Você não pode inserir um valor negativo.");
-      }
-    })
-  }
-)
+function addEventOnControlButtons() {
+  controls.incrementButtons.forEach(
+    (element) => {
+      element.addEventListener('click', (event) => {
+        incrementData(event.target.parentNode);
+        increaseStats(event.target.dataset.part);
+      })
+    }
+  )
+  
+  controls.decrementButtons.forEach(
+    (element) => {
+      element.addEventListener('click', (event) => {
+        const partValue = event.target.parentNode.querySelector('[data-counter]').value;
+        if(partValue > 0) {
+          decrementData(event.target.parentNode);
+          decreaseStats(event.target.dataset.part);
+        } else {
+          alert("Você não pode inserir um valor negativo.");
+        }
+      })
+    }
+  )
+}

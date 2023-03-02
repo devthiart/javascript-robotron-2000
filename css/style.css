@@ -133,6 +133,10 @@ main {
     padding: 0;
 }
 
+.controle-cor-valor {
+    display: none;
+}
+
 .linha {
     border-color: var(--main-cinza);
 }
