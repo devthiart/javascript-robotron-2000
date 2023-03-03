@@ -1,0 +1,28 @@
+body {
+  background-color: rgb(31, 31, 66);
+  margin: 0;
+}
+
+img {
+  max-width: 100vw;
+  position: fixed;
+}
+
+a {
+  background-color: rgba(255, 255, 255, 0.5);
+  clip-path: polygon(100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 0);
+  color:black;
+  font-family: 'Teko', sans-serif;
+  font-size: 1.5rem;
+  margin: 2rem;
+  padding: 1rem;
+  position: absolute;
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: black;
+  border: 2px solid white;
+  clip-path: polygon(100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 0);
+  color: white;
+}

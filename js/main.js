@@ -36,8 +36,10 @@ const parts = {
       "velocidade": -2
   }
 }
+const assembler = document.querySelector('.montador');
 
 addEventOnControlButtons();
+addEventOnAssembler();
 
 function incrementData(control) {
   const part = control.querySelector('[data-counter]');
@@ -85,4 +87,29 @@ function addEventOnControlButtons() {
       })
     }
   )
+}
+
+function validateStatsValues() {
+  let isValid = true;
+
+  statistics.forEach((element) => {
+    if(parseInt(element.textContent) <= 0) {
+      isValid = false;
+    }
+  });
+
+  return isValid;
+}
+
+function addEventOnAssembler() {
+  assembler.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    if(validateStatsValues() === false) {
+      alert("Um Robotron com status negativos ou zerados não conseguirá batalhar.");
+      return;
+    }
+
+    window.location.pathname = '/battle-result.html';
+  })
 }
